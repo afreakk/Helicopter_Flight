@@ -7,7 +7,7 @@ from core.foreground import ForgeGround
 class LevelOne(object):
     """First level"""
     def __init__(self, resolution):
-        self.parrot = Parrot()
+        self.parrot = Parrot(resolution)
         self.gravity = Gravity(100)
         self.gravity.add_parrot(self.parrot)
         self.fore_ground = ForgeGround(resolution)
@@ -16,7 +16,7 @@ class LevelOne(object):
         """logic update for objects in this level/scene"""
         self.parrot.update(delta_time)
         self.gravity.update(delta_time)
-        self.fore_ground.move(delta_time*-2000)
+        self.fore_ground.move(delta_time*-200)
         self.fore_ground.update_positions(resolution)
 
     def draw(self, screen):

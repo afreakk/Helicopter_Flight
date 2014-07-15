@@ -31,7 +31,12 @@ def vector_add(vec_a, vec_b):
         raise Exception("Trying to vector_add something that is not a tuple!")
 
 
-def translate(x_velocity, y_velocity, points):
+def vector_div(vec, div):
+    """divides a 2d vector by div"""
+    return (vec[0]/div, vec[1]/div)
+
+
+def translate((x_velocity, y_velocity), points):
     """Translates vertex list of tuples by x and y velocity"""
     for elm in xrange(len(points)):
         points[elm] = vector_add(points[elm], (x_velocity, y_velocity))
