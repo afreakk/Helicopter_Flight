@@ -1,6 +1,12 @@
 """ utilities"""
 
 
+def get_deltatime(clock):
+    """gets delta time"""
+    mill_sec = clock.tick()
+    return mill_sec / 1000.0
+
+
 def almost_equal(value_a, value_b, epsilon):
     """returns true if valA and valB is within epsilon range of eachother"""
     if value_a > value_b - epsilon:

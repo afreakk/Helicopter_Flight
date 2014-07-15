@@ -1,46 +1,51 @@
 """Entry point for parrot--game"""
 import pygame
 import sys
-from objects.parrot import Parrot
-from core.gravity import Gravity
-from core.foreground import ForgeGround
+from core.utils import get_deltatime
+from lvls.lvlone import LevelOne
 
 
-def get_deltatime(clock):
-    """gets delta time"""
-    mill_sec = clock.tick()
-    return mill_sec / 1000.0
+class HelicopterGame(object):
+    """Bottom of stack.. Top layer of this game"""
+    def __init__(self, width, height):
+        pygame.init()
+        pygame.display.set_caption("Helicopter-Simulator:)")
+        self.resolution = (width, height)
+        self.screen = pygame.display.set_mode(self.resolution)
+        self.clock = pygame.time.Clock()
+        self.running = True
+        self.lvl = None
 
-
-def main():
-    """Entry point"""
-    pygame.init()
-    width = 800
-    height = 600
-    screen = pygame.display.set_mode((width, height))
-    pygame.display.set_caption("Racketeeeeerz")
-    clock = pygame.time.Clock()
-    running = True
-    parrot = Parrot()
-    gravity = Gravity(100)
-    gravity.add_parrot(parrot)
-    fore_ground = ForgeGround(width, height)
-    while running:
-        delta_time = get_deltatime(clock)
+    def handle_event(self):
+        """Takes event and uses it for stuff"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                running = False
-            parrot.control(event)
-        parrot.update(delta_time)
-        gravity.update(delta_time)
-        screen.fill((0, 0, 255))
-        parrot.draw(screen)
-        fore_ground.draw(screen)
+                self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.running = False
+            self.lvl.dispatch_event(event)
+
+    def update_level(self):
+        """updates current level"""
+        delta_time = get_deltatime(self.clock)
+        self.lvl.update(delta_time, self.resolution)
+
+    def draw_level(self):
+        """draws current level"""
+        self.screen.fill((0, 0, 255))
+        self.lvl.draw(self.screen)
         pygame.display.flip()
-        fore_ground.move(delta_time*-2000)
-        fore_ground.update_positions(width, height)
+
+
+def game_loop(app):
+    """Main_game_loop"""
+    while app.running:
+        app.handle_event()
+        app.update_level()
+        app.draw_level()
 
 if __name__ == '__main__':
-    sys.exit(main())
+    APP = HelicopterGame(800, 600)
+    APP.lvl = LevelOne(APP.resolution)
+    sys.exit(game_loop(APP))

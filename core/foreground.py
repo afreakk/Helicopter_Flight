@@ -6,7 +6,7 @@ from Queue import Queue
 
 class ForgeGround(object):
     """foregrond class"""
-    def __init__(self, screen_width, screen_height):
+    def __init__(self, (screen_width, screen_height)):
         self.trees = Queue()
         x_pos = 0
         while x_pos < screen_width+100:
@@ -24,19 +24,19 @@ class ForgeGround(object):
         for obj in self.trees.queue:
             obj.loc_translate(distance, 0)
 
-    def update_positions(self, screen_width, screen_height):
+    def update_positions(self, resolution):
         """handles tree movement, so it doesnt go out of scene etc"""
-        self._keep_within_scene(screen_width, screen_height)
+        self._keep_within_scene(resolution)
 
-    def _keep_within_scene(self, screen_width, screen_height):
+    def _keep_within_scene(self, resolution):
         """looks after trees and keeps them within scene"""
         bot_tree = self.trees.queue[0]
         tree_width = bot_tree.max_width*2
         if any_x_below(bot_tree.points, -tree_width):
-            self._place_new_tree(screen_width, screen_height)
-            self._keep_within_scene(screen_width, screen_height)
+            self._place_new_tree(resolution)
+            self._keep_within_scene(resolution)
 
-    def _place_new_tree(self, screen_width, screen_height):
+    def _place_new_tree(self, (screen_width, screen_height)):
         """removes tree at bottom of que, places new random tree at top to\
            the right of screen"""
         old_tree = self.trees.get()
