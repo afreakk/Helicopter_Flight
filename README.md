@@ -1,4 +1,4 @@
-# Helicopter game
+# 2D Procedural Environment Helicopter game
 ## requirements
 * Python 2.7
 * pygame 1.9.1
