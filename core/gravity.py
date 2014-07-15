@@ -12,6 +12,6 @@ class Gravity(object):
         for obj in self.objects:
             obj.loc_translate((0, delta_time*self.strength))
 
-    def add_parrot(self, parrot):
+    def add_object(self, parrot):
         """adds parrot to universe"""
         self.objects.append(parrot)

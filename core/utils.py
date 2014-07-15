@@ -15,20 +15,9 @@ def almost_equal(value_a, value_b, epsilon):
     return False
 
 
-def get_square(width, height):
-    """return arrray of square vertexZ"""
-    return [(-width, -height),
-            (+width, -height),
-            (+width, +height),
-            (-width, +height)]
-
-
 def vector_add(vec_a, vec_b):
     """ adds two (2D)vectors(tuples) and returns answer"""
-    if isinstance(vec_a, tuple) and isinstance(vec_b, tuple):
-        return (vec_a[0]+vec_b[0], vec_a[1]+vec_b[1])
-    else:
-        raise Exception("Trying to vector_add something that is not a tuple!")
+    return (vec_a[0]+vec_b[0], vec_a[1]+vec_b[1])
 
 
 def vector_div(vec, div):

@@ -10,8 +10,9 @@ python main.py
 
 to run alpha game:)
 
-* W = UP
-* S = DOWN
+* W = up
+* S = down
+* SPACE = drop bomb
 
 ####
 coming soon for android

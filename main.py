@@ -7,10 +7,10 @@ from lvls.lvlone import LevelOne
 
 class HelicopterGame(object):
     """Bottom of stack.. Top layer of this game"""
-    def __init__(self, width, height):
+    def __init__(self, resolution):
         pygame.init()
         pygame.display.set_caption("Helicopter-Simulator:)")
-        self.resolution = (width, height)
+        self.resolution = resolution
         self.screen = pygame.display.set_mode(self.resolution)
         self.clock = pygame.time.Clock()
         self.running = True
@@ -46,6 +46,6 @@ def game_loop(app):
         app.draw_level()
 
 if __name__ == '__main__':
-    APP = HelicopterGame(800, 600)
+    APP = HelicopterGame((800, 600))
     APP.lvl = LevelOne(APP.resolution)
     sys.exit(game_loop(APP))

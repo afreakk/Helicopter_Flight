@@ -1,5 +1,6 @@
 """vertexxzz fr tree"""
-from core.utils import translate, get_square
+from core.utils import translate
+from core.geometry import get_square
 from objects.baseobj import BaseObj
 import pygame
 import random
