@@ -17,14 +17,13 @@ def get_parrot(blade_width=50, blade_height=10,
     return [blade, pin, house]
 
 
-def get_bomb():
+def get_bomb(tail_length=10,
+             base_length=20,
+             tail_width=10,
+             angle_width=5,
+             base_width=5,
+             tip_length=10):
     """gets geometry vertexz for bomb that helicopter drops"""
-    tail_length = 10
-    base_length = 20
-    tail_width = 10
-    angle_width = 5
-    base_width = 5
-    tip_length = 10
     top_bomb = [(0, 0), (tail_length, tail_width),
                 (tail_length+base_length, tail_width),
                 (tail_length+base_length+tip_length, tail_width+angle_width),

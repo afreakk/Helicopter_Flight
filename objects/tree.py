@@ -1,6 +1,6 @@
 """vertexxzz fr tree"""
 from core.utils import translate
-from core.geometry import get_square
+from core.geometry import get_tree_square, get_square
 from objects.baseobj import BaseObj
 import pygame
 import random
@@ -19,7 +19,7 @@ def get_rand_tree(position):
 
 
 def get_tree_vx(max_width, min_width, itter_width, itter_height,
-                points=[], start_iter_height=None):
+                points=[], start_iter_height=None, tree_pointyness=1.9):
     """recursive tree builder"""
     if start_iter_height is None:
         start_iter_height = itter_height
@@ -27,7 +27,9 @@ def get_tree_vx(max_width, min_width, itter_width, itter_height,
         points = []
     if max_width > min_width:
         itter_height += start_iter_height*2
-        height_chunk = get_square(max_width, start_iter_height)
+        ratio = itter_height / float(itter_width)
+        ratio /= ratio/tree_pointyness
+        height_chunk = get_tree_square(max_width, start_iter_height, ratio)
         translate((0, -itter_height), height_chunk)
         points.append(height_chunk)
         next_width = max_width - itter_width

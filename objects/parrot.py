@@ -27,9 +27,9 @@ class Parrot(BaseObj):
         screen_mid = vector_div(resolution, 2)
         self.loc_translate(screen_mid)
 
-    def get_total_height(self):
+    def get_height(self):
         """total height of helicopter"""
-        return self.house_height*2+self.pin_height*2+self.blade_height*2
+        return self.house_height+self.pin_height+self.blade_height
 
     def update(self, delta_time):
         """updates helicopter physics etc"""
@@ -52,7 +52,7 @@ class Parrot(BaseObj):
         if self.do_bomb:
             self.do_bomb = False
             bomb = Bomb()
-            helicopter_offset = (self.blade_width/2, self.get_total_height()+1)
+            helicopter_offset = (self.blade_width/2, self.get_height()*2+1)
             bomb_position = vector_add(self.position, helicopter_offset)
             bomb.loc_translate(bomb_position)
             return bomb
@@ -74,4 +74,24 @@ class Parrot(BaseObj):
 class Bomb(BaseObj):
     """Bomb that player drops"""
     def __init__(self):
-        BaseObj.__init__(self, get_bomb(), (0, 0, 0))
+        self.tail_length = 10
+        self.base_length = 20
+        self.tail_width = 10
+        self.tip_width = 5
+        self.base_width = 5
+        self.tip_length = 10
+        BaseObj.__init__(self,
+                         get_bomb(self.tail_length, self.base_length,
+                                  self.tail_width,
+                                  self.tip_width,
+                                  self.base_width,
+                                  self.tip_length,),
+                         (0, 0, 0))
+
+    def get_width(self):
+        """width of bomb"""
+        return self.tip_width+self.base_width+self.tail_width
+
+    def get_height(self):
+        """height of bomb"""
+        return self.tip_length+self.base_length+self.tail_length
