@@ -10,5 +10,8 @@ python main.py
 
 to run alpha game:)
 
+* W = UP
+* S = DOWN
+
 ####
 coming soon for android
