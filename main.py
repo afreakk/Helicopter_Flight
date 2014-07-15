@@ -39,7 +39,7 @@ def main():
         parrot.draw(screen)
         fore_ground.draw(screen)
         pygame.display.flip()
-        fore_ground.move(delta_time*-100)
+        fore_ground.move(delta_time*-2000)
         fore_ground.update_positions(width, height)
 
 if __name__ == '__main__':

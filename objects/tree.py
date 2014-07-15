@@ -51,6 +51,8 @@ class Tree(object):
         self.branches = self.points[:-1]
 
         self.max_width = max_width
+        self.x_pos = 0
+        self.y_pos = 0
 
     def draw(self, screen):
         """draws the helicopter on screen"""
@@ -61,7 +63,20 @@ class Tree(object):
 
     def loc_translate(self, x_velocity, y_velocity):
         """local self.points translate"""
+        self.x_pos += x_velocity
+        self.y_pos += y_velocity
         for branch_points in self.branches:
             translate(x_velocity, y_velocity, branch_points)
         for bottom_points in self.bottom:
             translate(x_velocity, y_velocity, bottom_points)
+
+    def loc_set_pos(self, new_x, new_y):
+        """sets position of tree"""
+        total_x_vel = -self.x_pos+new_x
+        total_y_vel = -self.y_pos+new_y
+        for branch_points in self.branches:
+            translate(total_x_vel, total_y_vel, branch_points)
+        for bottom_points in self.bottom:
+            translate(total_x_vel, total_y_vel, bottom_points)
+        self.x_pos = new_x
+        self.y_pos = new_y

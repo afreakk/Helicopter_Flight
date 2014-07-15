@@ -1,6 +1,6 @@
 """foreground"""
 from objects.tree import get_rand_tree
-from core.utils import any_x_below
+from core.utils import any_x_below, almost_equal
 from Queue import Queue
 
 
@@ -9,10 +9,10 @@ class ForgeGround(object):
     def __init__(self, screen_width, screen_height):
         self.trees = Queue()
         x_pos = 0
-        while x_pos < screen_width:
+        while x_pos < screen_width+100:
             another_tree = get_rand_tree(x_pos, screen_height)
             self.trees.put(another_tree)
-            x_pos += 100
+            x_pos += 50
 
     def draw(self, screen):
         """draws all object in foreground object list"""
@@ -30,7 +30,20 @@ class ForgeGround(object):
 
     def _keep_within_scene(self, screen_width, screen_height):
         """looks after trees and keeps them within scene"""
-        bottom_tree = self.trees.queue[0]
-        if any_x_below(bottom_tree.points, -bottom_tree.max_width*2):
-            self.trees.put(self.trees.get())
-            bottom_tree.loc_translate(screen_width+bottom_tree.max_width*2, 0)
+        bot_tree = self.trees.queue[0]
+        tree_width = bot_tree.max_width*2
+        if any_x_below(bot_tree.points, -tree_width):
+            self._place_new_tree(screen_width, screen_height)
+            self._keep_within_scene(screen_width, screen_height)
+
+    def _place_new_tree(self, screen_width, screen_height):
+        """removes tree at bottom of que, places new random tree at top to\
+           the right of screen"""
+        old_tree = self.trees.get()
+        another_tree = get_rand_tree(0, screen_height)
+        new_x = (-old_tree.x_pos) + old_tree.max_width*2 + screen_width
+        for tree in self.trees.queue:
+            while almost_equal(tree.x_pos, new_x, another_tree.max_width):
+                new_x += 1
+        another_tree.loc_translate(new_x, 0)
+        self.trees.put(another_tree)

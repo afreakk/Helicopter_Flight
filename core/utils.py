@@ -1,6 +1,14 @@
 """ utilities"""
 
 
+def almost_equal(value_a, value_b, epsilon):
+    """returns true if valA and valB is within epsilon range of eachother"""
+    if value_a > value_b - epsilon:
+        if value_a < value_b + epsilon:
+            return True
+    return False
+
+
 def get_square(width, height):
     """return arrray of square vertexZ"""
     return [(-width, -height),
