@@ -24,7 +24,8 @@ def get_bomb(tail_length=10,
              base_width=5,
              tip_length=10):
     """gets geometry vertexz for bomb that helicopter drops"""
-    top_bomb = [(0, 0), (tail_length, tail_width),
+    top_bomb = [(0, 0),
+                (tail_length, tail_width),
                 (tail_length+base_length, tail_width),
                 (tail_length+base_length+tip_length, tail_width+angle_width),
                 (tail_length+base_length+tip_length, tail_width+angle_width+base_width)]

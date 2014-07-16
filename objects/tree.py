@@ -36,7 +36,7 @@ def get_tree_vx(max_width, min_width, itter_width, itter_height,
         return get_tree_vx(next_width, min_width, itter_width,
                            itter_height, points, start_iter_height)
     else:
-        bottom = get_square(max_width*2, start_iter_height)
+        bottom = get_square(max_width+itter_width, start_iter_height)
         translate((0, -start_iter_height), bottom)
         points.append(bottom)
         return points

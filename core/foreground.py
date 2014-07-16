@@ -24,9 +24,10 @@ class ForgeGround(object):
         for obj in self.trees.queue:
             obj.loc_translate((distance, 0))
 
-    def update_positions(self, resolution):
+    def update_positions(self, resolution, ground_points):
         """handles tree movement, so it doesnt go out of scene etc"""
         self._keep_within_scene(resolution)
+        self._set_ypositions(ground_points)
 
     def _keep_within_scene(self, resolution):
         """looks after trees and keeps them within scene"""
@@ -47,3 +48,22 @@ class ForgeGround(object):
                 new_x += 1
         another_tree.loc_translate((new_x, 0))
         self.trees.put(another_tree)
+
+    def _set_ypositions(self, ground_points):
+        """ sets height position of trees in list"""
+        for tree in self.trees.queue:
+            new_y = get_closest_y(ground_points, tree.position)
+            old_y = tree.position[1]
+            tree.loc_translate((0, new_y - old_y))
+
+
+def get_closest_y(points, the_point):
+    """gets closest y value of points to point"""
+    y_value = None
+    smallest_distance = 100000
+    for point in points:
+        distance = abs(point[0] - the_point[0])
+        if distance < smallest_distance:
+            y_value = point[1]
+            smallest_distance = distance
+    return y_value
