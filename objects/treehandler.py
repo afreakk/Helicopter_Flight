@@ -30,7 +30,7 @@ class TreeHandler(object):
             obj.draw(screen)
 
     def move(self, distance):
-        """updates all objz in foreground list"""
+        """moves all objz in list by universally accepted distance"""
         for obj in self.trees.queue:
             obj.loc_translate((distance, 0))
 

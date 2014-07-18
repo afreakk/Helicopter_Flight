@@ -10,9 +10,10 @@ class BaseObj(object):
         self.position = (0, 0)
         self.color = color
 
-    def loc_translate(self, velocity):
+    def loc_translate(self, velocity, discreet=False):
         """local self.points translate"""
-        self.position = vector_add(self.position, velocity)
+        if discreet is False:
+            self.position = vector_add(self.position, velocity)
         for point_batch in self.points:
             translate(velocity, point_batch)
 
@@ -27,3 +28,8 @@ class BaseObj(object):
         """draws the helicopter on screen"""
         for points in self.points:
             pygame.draw.polygon(screen, self.color, points)
+
+    def update_points(self, local_points):
+        """updates geometry of object, and positions it back to old pos"""
+        self.points = local_points
+        self.loc_translate(self.position, True)

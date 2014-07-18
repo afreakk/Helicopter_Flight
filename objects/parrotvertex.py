@@ -1,19 +1,31 @@
 """vertexxzz fr parrot"""
 from core.utils import translate
 from core.geometry import get_square
+from math import sin, cos
 
 
-def get_parrot(blade_width=50, blade_height=10,
+def get_blades(blade_width, blade_length, dist_traveld):
+    """for getting bladez"""
+    dist_traveld /= 12.5
+    top_blade = [(i*sin(dist_traveld), i*cos(dist_traveld))
+                 for i in range(-blade_length, blade_length)]
+    bottom_blade = [x for x in reversed(top_blade)]
+    translate((0, blade_width), bottom_blade)
+    return top_blade+bottom_blade
+
+
+def get_parrot(blade_length=50, blade_width=10,
                pin_height=10, pin_width=5,
-               house_width=35, house_height=40):
+               house_width=35, house_height=40,
+               dist_traveld=0):
     """gets geometry vertex for parrot helicopeter"""
-    blade = get_square(blade_width, blade_height)
+    blade = get_blades(blade_width, blade_length, dist_traveld)
 
     pin = get_square(pin_width, pin_height)
-    translate((0, blade_height + pin_height), pin)
+    translate((0, blade_width + pin_height), pin)
 
     house = get_square(house_width, house_height)
-    translate((0, blade_height + pin_height + house_height), house)
+    translate((0, blade_width + pin_height + house_height), house)
     return [blade, pin, house]
 
 

@@ -8,17 +8,13 @@ from core.utils import vector_div, vector_add
 class Parrot(BaseObj):
     """Parrot that player controls"""
     def __init__(self, resolution):
-        self.blade_width = 50
-        self.blade_height = 10
+        self.blade_length = 50
+        self.blade_width = 10
         self.pin_height = 10
         self.pin_width = 5
         self.house_width = 35
         self.house_height = 40
-        BaseObj.__init__(self,
-                         get_parrot(self.blade_width, self.blade_height,
-                                    self.pin_height, self.pin_width,
-                                    self.house_width, self.house_height),
-                         (255, 0, 0))
+        BaseObj.__init__(self, self._get_parrot(0), (255, 0, 0))
         self.ctrlup = False
         self.ctrldown = False
         self.up_pwr = 200.0
@@ -26,13 +22,17 @@ class Parrot(BaseObj):
         self.do_bomb = False
         screen_mid = vector_div(resolution, 2)
         self.loc_translate(screen_mid)
+        self.blade_clr = (100, 100, 100)
+        self.pin_clr = (0, 0, 0)
+        self.house_clr = (200, 10, 10)
 
     def get_height(self):
         """total height of helicopter"""
-        return self.house_height+self.pin_height+self.blade_height
+        return self.house_height+self.pin_height
 
-    def update(self, delta_time):
+    def update(self, delta_time, distance_traveled):
         """updates helicopter physics etc"""
+        self.update_points(self._get_parrot(distance_traveled))
         if self.ctrlup:
             self.loc_translate((0.0, delta_time*-self.up_pwr))
         if self.ctrldown:
@@ -69,6 +69,19 @@ class Parrot(BaseObj):
         """handle bomb dropping"""
         if key == pygame.K_SPACE:
             self.do_bomb = value
+
+    def _get_parrot(self, distance_traveled):
+        """gets parrot at distance_traveled  - distance traveled"""
+        return get_parrot(self.blade_length, self.blade_width, self.pin_height,
+                          self.pin_width, self.house_width, self.house_height,
+                          distance_traveled)
+
+    def draw(self, screen):
+        """draws the helicopter on screen"""
+        blade, pin, house = self.points
+        pygame.draw.polygon(screen, self.house_clr, house)
+        pygame.draw.polygon(screen, self.pin_clr, pin)
+        pygame.draw.polygon(screen, self.blade_clr, blade)
 
 
 class Bomb(BaseObj):

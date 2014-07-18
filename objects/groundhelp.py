@@ -13,10 +13,12 @@ def ground_catch_obj(obj, ground_points, sample_width,
 
 
 def avg_closest_y(points, the_point, sample_width):
-    """gets closest y value of points to point"""
-    distance_sets = zip([abs(point[0] - the_point[0]) for point in points],
-                        [x for x in range(len(points))])
-    closest = heapq.nsmallest(sample_width, distance_sets, key=lambda x: x[0])
-    closest = [points[x[1]][1] for x in closest]
-    average = reduce(lambda x, y: x+y, closest) / sample_width
-    return average
+    """gets average y value of nearest x points to the_point's x value\
+       points = [(x,y), (x,y), (x,y)....] point = (x,y)"""
+    first, second = lambda x: x[0], lambda y: y[1]
+    distances = zip([abs(first(point)-first(the_point)) for point in points],
+                    [x for x in range(len(points))])
+    nearest_sets = heapq.nsmallest(sample_width, distances, key=first)
+    nearest_y_values = [second(points[x[1]]) for x in nearest_sets]
+    average_y = reduce(lambda x, y: x+y, nearest_y_values) / sample_width
+    return average_y

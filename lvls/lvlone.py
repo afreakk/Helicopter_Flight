@@ -20,10 +20,10 @@ class LevelOne(object):
     def update(self, delta_time, resolution):
         """logic update for objects in this level/scene"""
         self.gravity.update(delta_time)
-        self.parrot.update(delta_time)
         distance_velocity = delta_time*200
         self.tree_handler.move(distance_velocity*-1)
         self.distance_traveled += distance_velocity
+        self.parrot.update(delta_time, self.distance_traveled)
         self.tree_handler.update(resolution, self.ground.points[0])
         self.ground.update_ground(self.distance_traveled, resolution)
         self._handle_bombing()
