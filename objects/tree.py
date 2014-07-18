@@ -52,6 +52,6 @@ def rand_branch_color():
 def rand_bottom_color():
     """color for bottom of tree, brownsih"""
     red = random.randint(120, 160)
-    green = random.randint(50, 90)
+    green = random.randint(0, 90)
     blue = random.randint(0, 40)
     return (red, green, blue)
