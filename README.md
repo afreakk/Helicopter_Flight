@@ -4,25 +4,25 @@
 * pygame 1.9.1
 * noise
 
-### Installation:
-* install pygame
-* install noise
+### Installation
+1. get python
+2. get pip
+
+```
+pip install pygame
+```
+
 ```
 pip install noise
 ```
-* download repo 
 
-### Usage:
+### run
+
 ```
 python main.py
 ```
 
-to run alpha game
-
+### Controls
 * W = up
 * S = down
 * SPACE = drop bomb
-
-####
-coming soon for android..maybe
-

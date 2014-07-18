@@ -1,7 +1,6 @@
 """vertexxzz fr tree"""
-from core.utils import translate
-from core.geometry import get_tree_square, get_square
 from objects.baseobj import BaseObj
+from objects.treevertex import get_tree_vx
 import pygame
 import random
 
@@ -16,46 +15,6 @@ def get_rand_tree(position):
                        itter_height)
     random_tree.loc_translate(position)
     return random_tree
-
-
-def get_tree_vx(max_width, min_width, itter_width, itter_height,
-                points=[], start_iter_height=None, tree_pointyness=1.9):
-    """recursive tree builder"""
-    if start_iter_height is None:
-        start_iter_height = itter_height
-        # reset list, at begining of every outside of function function call.
-        points = []
-    if max_width > min_width:
-        itter_height += start_iter_height*2
-        ratio = itter_height / float(itter_width)
-        ratio /= ratio/tree_pointyness
-        height_chunk = get_tree_square(max_width, start_iter_height, ratio)
-        translate((0, -itter_height), height_chunk)
-        points.append(height_chunk)
-        next_width = max_width - itter_width
-        return get_tree_vx(next_width, min_width, itter_width,
-                           itter_height, points, start_iter_height)
-    else:
-        bottom = get_square(max_width+itter_width, start_iter_height)
-        translate((0, -start_iter_height), bottom)
-        points.append(bottom)
-        return points
-
-
-def rand_branch_color():
-    """color for branchezz, greenish"""
-    red = random.randint(0, 30)
-    green = random.randint(200, 255)
-    blue = random.randint(0, 30)
-    return (red, green, blue)
-
-
-def rand_bottom_color():
-    """color for bottom of tree, brownsih"""
-    red = random.randint(120, 160)
-    green = random.randint(50, 90)
-    blue = random.randint(0, 40)
-    return (red, green, blue)
 
 
 class Tree(BaseObj):
@@ -77,3 +36,22 @@ class Tree(BaseObj):
             pygame.draw.polygon(screen, self.branch_color, branch_points)
         for bottom_points in self.bottom:
             pygame.draw.polygon(screen, self.bottom_color, bottom_points)
+
+
+# ------ random colorz- functions -------
+
+
+def rand_branch_color():
+    """color for branchezz, greenish"""
+    red = random.randint(0, 100)
+    green = random.randint(175, 255)
+    blue = random.randint(0, 100)
+    return (red, green, blue)
+
+
+def rand_bottom_color():
+    """color for bottom of tree, brownsih"""
+    red = random.randint(120, 160)
+    green = random.randint(50, 90)
+    blue = random.randint(0, 40)
+    return (red, green, blue)
