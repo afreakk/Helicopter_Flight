@@ -31,7 +31,7 @@ class Tree(BaseObj):
         self.bottom_color = rand_bottom_color()
 
     def draw(self, screen):
-        """draws the helicopter on screen"""
+        """draws the tree on screen ( overrides baseobj draw )"""
         for branch_points in self.branches:
             pygame.draw.polygon(screen, self.branch_color, branch_points)
         for bottom_points in self.bottom:

@@ -1,6 +1,6 @@
 """vertexxzz fr parrot"""
 from core.utils import translate
-from core.geometry import get_square
+from core.geometry import get_square, get_circle
 from math import sin, cos
 
 
@@ -24,7 +24,7 @@ def get_parrot(blade_length=50, blade_width=10,
     pin = get_square(pin_width, pin_height)
     translate((0, blade_width + pin_height), pin)
 
-    house = get_square(house_width, house_height)
+    house = get_circle(house_width, 100)
     translate((0, blade_width + pin_height + house_height), house)
     return [blade, pin, house]
 
