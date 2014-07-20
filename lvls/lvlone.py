@@ -14,7 +14,7 @@ class LevelOne(object):
         self.gravity.add_object(self.parrot)
         self.tree_handler = TreeHandler(resolution)
         self.bomb_mgr = BombManager()
-        self.ground = Ground(resolution, resolution[0]/1.5)
+        self.ground = Ground(resolution, resolution[0]/1.5, resolution[1]/1.5)
         self.distance_traveled = 0.0
 
     def update(self, delta_time, resolution):

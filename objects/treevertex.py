@@ -8,7 +8,7 @@ def get_tree_vx(max_width, min_width, itter_width, itter_height,
     """recursive tree builder"""
     if start_iter_height is None:
         start_iter_height = itter_height
-        # reset list, at begining of every outside of function function call.
+        # reset list, at begining of every non-recursive function function call
         points = []
     if max_width > min_width:
         itter_height += start_iter_height*2
