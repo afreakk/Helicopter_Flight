@@ -31,6 +31,12 @@ def translate((x_velocity, y_velocity), points):
         points[elm] = vector_add(points[elm], (x_velocity, y_velocity))
 
 
+def translate_indexes((x_velocity, y_velocity), points, indexes):
+    """Translates vertex list of tuples by x and y velocity"""
+    for idx in indexes:
+        points[idx] = vector_add(points[idx], (x_velocity, y_velocity))
+
+
 def not_in_scene(points, screen_width, screen_height):
     """checks if list of vectors is outside scene"""
     flat_list = []

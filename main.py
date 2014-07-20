@@ -25,6 +25,7 @@ class HelicopterGame(object):
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
             self.lvl.dispatch_event(event)
+            print "FPS:", self.clock.get_fps()
 
     def update_level(self):
         """updates current level"""
